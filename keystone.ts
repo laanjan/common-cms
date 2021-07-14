@@ -38,13 +38,10 @@ export default withAuth(
     lists,
     db: {
       adapter: 'prisma_postgresql',
-      url: process.env.DATABASE_URL || 'postgres://user:password@localhost/react-notes-backend',
+      url: process.env.DATABASE_URL || 'postgres://react-notes:react-notes@52.199.173.53:5432/react-notes',
     },
     ui: {
       isAccessAllowed: (context) => !!context.session?.data,
-    },
-    server: {
-      port: 4000,
     },
     images: {
       upload: 'local',
