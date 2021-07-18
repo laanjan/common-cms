@@ -31,8 +31,8 @@ const { withAuth } = createAuth({
 });
 
 const session = statelessSessions({
-  maxAge: sessionMaxAge,
   secret: sessionSecret,
+  maxAge: sessionMaxAge,
 });
 
 export default withAuth(
@@ -46,6 +46,9 @@ export default withAuth(
       isAccessAllowed: (context) => !!context.session?.data,
     },
     server: {
+      cors: {
+        origin: '*',
+      },
       port: process.env.PORT,
     },
     session,
