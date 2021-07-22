@@ -1,14 +1,10 @@
 import { createSchema } from '@keystone-next/keystone/schema';
-
 import User from './schemas/user'
-// import Post from './schemas/post'
-// import Tag from './schemas/tag'
+import Author from './schemas/author'
 import Notification from './schemas/notification'
-
 
 export const lists = createSchema({
   User: User,
- // Post: Post,
- //  Tag: Tag,
+  Author: Author,
   Notification: Notification,
 });

@@ -4,9 +4,10 @@ import { document } from "@keystone-next/fields-document";
 
 const Notification = list({
   fields: {
+    name: text({ isRequired: true, isUnique: true }),
+
     isVisible: checkbox({ isRequired: true, defaultValue: true }),
-    order: integer({ isRequired: true, isUnique: true, defaultValue: 0 }),
-    key: text(),
+    order: integer({ isRequired: true, isUnique: true }),
     content: document({
       formatting: true,
       links: true,

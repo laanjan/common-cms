@@ -15,10 +15,23 @@ model User {
   password String?
 }
 
+model Author {
+  id               String  @id @default(cuid())
+  name             String? @unique
+  avatar_filesize  Int?
+  avatar_extension String?
+  avatar_width     Int?
+  avatar_height    Int?
+  avatar_mode      String?
+  avatar_id        String?
+  email            String?
+  stackOverflow    String?
+}
+
 model Notification {
   id        String   @id @default(cuid())
+  name      String?  @unique
   isVisible Boolean?
   order     Int?     @unique
-  key       String?
   content   Json?
 }

@@ -111,11 +111,172 @@ input UsersCreateInput {
 """
  A keystone list
 """
+type Author {
+  id: ID!
+  name: String
+  avatar: ImageFieldOutput
+  email: String
+  stackOverflow: String
+}
+
+interface ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  ref: String!
+  src: String!
+}
+
+enum ImageExtension {
+  jpg
+  png
+  webp
+  gif
+}
+
+type LocalImageFieldOutput implements ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  ref: String!
+  src: String!
+}
+
+input AuthorWhereInput {
+  AND: [AuthorWhereInput!]
+  OR: [AuthorWhereInput!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  name: String
+  name_not: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_i: String
+  name_not_i: String
+  name_contains_i: String
+  name_not_contains_i: String
+  name_starts_with_i: String
+  name_not_starts_with_i: String
+  name_ends_with_i: String
+  name_not_ends_with_i: String
+  name_in: [String]
+  name_not_in: [String]
+  email: String
+  email_not: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  email_i: String
+  email_not_i: String
+  email_contains_i: String
+  email_not_contains_i: String
+  email_starts_with_i: String
+  email_not_starts_with_i: String
+  email_ends_with_i: String
+  email_not_ends_with_i: String
+  email_in: [String]
+  email_not_in: [String]
+  stackOverflow: String
+  stackOverflow_not: String
+  stackOverflow_contains: String
+  stackOverflow_not_contains: String
+  stackOverflow_starts_with: String
+  stackOverflow_not_starts_with: String
+  stackOverflow_ends_with: String
+  stackOverflow_not_ends_with: String
+  stackOverflow_i: String
+  stackOverflow_not_i: String
+  stackOverflow_contains_i: String
+  stackOverflow_not_contains_i: String
+  stackOverflow_starts_with_i: String
+  stackOverflow_not_starts_with_i: String
+  stackOverflow_ends_with_i: String
+  stackOverflow_not_ends_with_i: String
+  stackOverflow_in: [String]
+  stackOverflow_not_in: [String]
+}
+
+input AuthorWhereUniqueInput {
+  id: ID
+  name: String
+}
+
+enum SortAuthorsBy {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  email_ASC
+  email_DESC
+  stackOverflow_ASC
+  stackOverflow_DESC
+}
+
+input AuthorOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  email: OrderDirection
+  stackOverflow: OrderDirection
+}
+
+input AuthorUpdateInput {
+  name: String
+  avatar: ImageFieldInput
+  email: String
+  stackOverflow: String
+}
+
+input ImageFieldInput {
+  upload: Upload
+  ref: String
+}
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
+
+input AuthorsUpdateInput {
+  id: ID!
+  data: AuthorUpdateInput
+}
+
+input AuthorCreateInput {
+  name: String
+  avatar: ImageFieldInput
+  email: String
+  stackOverflow: String
+}
+
+input AuthorsCreateInput {
+  data: AuthorCreateInput
+}
+
+"""
+ A keystone list
+"""
 type Notification {
   id: ID!
+  name: String
   isVisible: Boolean
   order: Int
-  key: String
   content: Notification_content_DocumentField
 }
 
@@ -134,6 +295,24 @@ input NotificationWhereInput {
   id_gte: ID
   id_in: [ID!]
   id_not_in: [ID!]
+  name: String
+  name_not: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_i: String
+  name_not_i: String
+  name_contains_i: String
+  name_not_contains_i: String
+  name_starts_with_i: String
+  name_not_starts_with_i: String
+  name_ends_with_i: String
+  name_not_ends_with_i: String
+  name_in: [String]
+  name_not_in: [String]
   isVisible: Boolean
   isVisible_not: Boolean
   order: Int
@@ -144,53 +323,36 @@ input NotificationWhereInput {
   order_gte: Int
   order_in: [Int]
   order_not_in: [Int]
-  key: String
-  key_not: String
-  key_contains: String
-  key_not_contains: String
-  key_starts_with: String
-  key_not_starts_with: String
-  key_ends_with: String
-  key_not_ends_with: String
-  key_i: String
-  key_not_i: String
-  key_contains_i: String
-  key_not_contains_i: String
-  key_starts_with_i: String
-  key_not_starts_with_i: String
-  key_ends_with_i: String
-  key_not_ends_with_i: String
-  key_in: [String]
-  key_not_in: [String]
 }
 
 input NotificationWhereUniqueInput {
   id: ID
+  name: String
   order: Int
 }
 
 enum SortNotificationsBy {
   id_ASC
   id_DESC
+  name_ASC
+  name_DESC
   isVisible_ASC
   isVisible_DESC
   order_ASC
   order_DESC
-  key_ASC
-  key_DESC
 }
 
 input NotificationOrderByInput {
   id: OrderDirection
+  name: OrderDirection
   isVisible: OrderDirection
   order: OrderDirection
-  key: OrderDirection
 }
 
 input NotificationUpdateInput {
+  name: String
   isVisible: Boolean
   order: Int
-  key: String
   content: JSON
 }
 
@@ -200,9 +362,9 @@ input NotificationsUpdateInput {
 }
 
 input NotificationCreateInput {
+  name: String
   isVisible: Boolean
   order: Int
-  key: String
   content: JSON
 }
 
@@ -252,6 +414,36 @@ type Mutation {
    Delete multiple User items by ID.
   """
   deleteUsers(ids: [ID!]): [User]
+
+  """
+   Create a single Author item.
+  """
+  createAuthor(data: AuthorCreateInput): Author
+
+  """
+   Create multiple Author items.
+  """
+  createAuthors(data: [AuthorsCreateInput]): [Author]
+
+  """
+   Update a single Author item by ID.
+  """
+  updateAuthor(id: ID!, data: AuthorUpdateInput): Author
+
+  """
+   Update multiple Author items by ID.
+  """
+  updateAuthors(data: [AuthorsUpdateInput]): [Author]
+
+  """
+   Delete a single Author item by ID.
+  """
+  deleteAuthor(id: ID!): Author
+
+  """
+   Delete multiple Author items by ID.
+  """
+  deleteAuthors(ids: [ID!]): [Author]
 
   """
    Create a single Notification item.
@@ -357,6 +549,41 @@ type Query {
       reason: "This query will be removed in a future version. Please use usersCount instead."
     )
   usersCount(where: UserWhereInput! = {}): Int
+
+  """
+   Search for all Author items which match the where clause.
+  """
+  allAuthors(
+    where: AuthorWhereInput! = {}
+    search: String
+    sortBy: [SortAuthorsBy!]
+      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
+    orderBy: [AuthorOrderByInput!]! = []
+    first: Int
+    skip: Int! = 0
+  ): [Author!]
+
+  """
+   Search for the Author item with the matching ID.
+  """
+  Author(where: AuthorWhereUniqueInput!): Author
+
+  """
+   Perform a meta-query on all Author items which match the where clause.
+  """
+  _allAuthorsMeta(
+    where: AuthorWhereInput! = {}
+    search: String
+    sortBy: [SortAuthorsBy!]
+      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
+    orderBy: [AuthorOrderByInput!]! = []
+    first: Int
+    skip: Int! = 0
+  ): _QueryMeta
+    @deprecated(
+      reason: "This query will be removed in a future version. Please use authorsCount instead."
+    )
+  authorsCount(where: AuthorWhereInput! = {}): Int
 
   """
    Search for all Notification items which match the where clause.
