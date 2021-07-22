@@ -1,1 +1,1 @@
-yarn build && pm2 start yarn --name {react-notes-cms} -- start
+yarn build && pm2 start yarn --name {common-cms} -- start
