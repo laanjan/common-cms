@@ -47,7 +47,8 @@ export default withAuth(
     },
     server: {
       cors: {
-        origin: '*',
+        origin: /jatwing\.com$/,
+	credentials: true,
       },
       port: process.env.PORT,
     },

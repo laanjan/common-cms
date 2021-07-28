@@ -272,6 +272,158 @@ input AuthorsCreateInput {
 """
  A keystone list
 """
+type Project {
+  id: ID!
+  name: String
+  attribution: Project_attribution_DocumentField
+  copyright: String
+  github: String
+  license: String
+}
+
+type Project_attribution_DocumentField {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input ProjectWhereInput {
+  AND: [ProjectWhereInput!]
+  OR: [ProjectWhereInput!]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  name: String
+  name_not: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  name_i: String
+  name_not_i: String
+  name_contains_i: String
+  name_not_contains_i: String
+  name_starts_with_i: String
+  name_not_starts_with_i: String
+  name_ends_with_i: String
+  name_not_ends_with_i: String
+  name_in: [String]
+  name_not_in: [String]
+  copyright: String
+  copyright_not: String
+  copyright_contains: String
+  copyright_not_contains: String
+  copyright_starts_with: String
+  copyright_not_starts_with: String
+  copyright_ends_with: String
+  copyright_not_ends_with: String
+  copyright_i: String
+  copyright_not_i: String
+  copyright_contains_i: String
+  copyright_not_contains_i: String
+  copyright_starts_with_i: String
+  copyright_not_starts_with_i: String
+  copyright_ends_with_i: String
+  copyright_not_ends_with_i: String
+  copyright_in: [String]
+  copyright_not_in: [String]
+  github: String
+  github_not: String
+  github_contains: String
+  github_not_contains: String
+  github_starts_with: String
+  github_not_starts_with: String
+  github_ends_with: String
+  github_not_ends_with: String
+  github_i: String
+  github_not_i: String
+  github_contains_i: String
+  github_not_contains_i: String
+  github_starts_with_i: String
+  github_not_starts_with_i: String
+  github_ends_with_i: String
+  github_not_ends_with_i: String
+  github_in: [String]
+  github_not_in: [String]
+  license: String
+  license_not: String
+  license_contains: String
+  license_not_contains: String
+  license_starts_with: String
+  license_not_starts_with: String
+  license_ends_with: String
+  license_not_ends_with: String
+  license_i: String
+  license_not_i: String
+  license_contains_i: String
+  license_not_contains_i: String
+  license_starts_with_i: String
+  license_not_starts_with_i: String
+  license_ends_with_i: String
+  license_not_ends_with_i: String
+  license_in: [String]
+  license_not_in: [String]
+}
+
+input ProjectWhereUniqueInput {
+  id: ID
+  name: String
+}
+
+enum SortProjectsBy {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  copyright_ASC
+  copyright_DESC
+  github_ASC
+  github_DESC
+  license_ASC
+  license_DESC
+}
+
+input ProjectOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  copyright: OrderDirection
+  github: OrderDirection
+  license: OrderDirection
+}
+
+input ProjectUpdateInput {
+  name: String
+  attribution: JSON
+  copyright: String
+  github: String
+  license: String
+}
+
+input ProjectsUpdateInput {
+  id: ID!
+  data: ProjectUpdateInput
+}
+
+input ProjectCreateInput {
+  name: String
+  attribution: JSON
+  copyright: String
+  github: String
+  license: String
+}
+
+input ProjectsCreateInput {
+  data: ProjectCreateInput
+}
+
+"""
+ A keystone list
+"""
 type Notification {
   id: ID!
   name: String
@@ -446,6 +598,36 @@ type Mutation {
   deleteAuthors(ids: [ID!]): [Author]
 
   """
+   Create a single Project item.
+  """
+  createProject(data: ProjectCreateInput): Project
+
+  """
+   Create multiple Project items.
+  """
+  createProjects(data: [ProjectsCreateInput]): [Project]
+
+  """
+   Update a single Project item by ID.
+  """
+  updateProject(id: ID!, data: ProjectUpdateInput): Project
+
+  """
+   Update multiple Project items by ID.
+  """
+  updateProjects(data: [ProjectsUpdateInput]): [Project]
+
+  """
+   Delete a single Project item by ID.
+  """
+  deleteProject(id: ID!): Project
+
+  """
+   Delete multiple Project items by ID.
+  """
+  deleteProjects(ids: [ID!]): [Project]
+
+  """
    Create a single Notification item.
   """
   createNotification(data: NotificationCreateInput): Notification
@@ -584,6 +766,41 @@ type Query {
       reason: "This query will be removed in a future version. Please use authorsCount instead."
     )
   authorsCount(where: AuthorWhereInput! = {}): Int
+
+  """
+   Search for all Project items which match the where clause.
+  """
+  allProjects(
+    where: ProjectWhereInput! = {}
+    search: String
+    sortBy: [SortProjectsBy!]
+      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
+    orderBy: [ProjectOrderByInput!]! = []
+    first: Int
+    skip: Int! = 0
+  ): [Project!]
+
+  """
+   Search for the Project item with the matching ID.
+  """
+  Project(where: ProjectWhereUniqueInput!): Project
+
+  """
+   Perform a meta-query on all Project items which match the where clause.
+  """
+  _allProjectsMeta(
+    where: ProjectWhereInput! = {}
+    search: String
+    sortBy: [SortProjectsBy!]
+      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
+    orderBy: [ProjectOrderByInput!]! = []
+    first: Int
+    skip: Int! = 0
+  ): _QueryMeta
+    @deprecated(
+      reason: "This query will be removed in a future version. Please use projectsCount instead."
+    )
+  projectsCount(where: ProjectWhereInput! = {}): Int
 
   """
    Search for all Notification items which match the where clause.
