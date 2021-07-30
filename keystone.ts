@@ -26,7 +26,9 @@ if (process.env.NODE_ENV === "production") {
   };
 } else {
   server = {
-    cors: "*",
+    cors: {
+      origin: "*",
+    }
     port: process.env.PORT_DEVELOPMENT,
   };
 }
