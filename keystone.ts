@@ -2,7 +2,6 @@ import { config } from "@keystone-next/keystone/schema";
 import { statelessSessions } from "@keystone-next/keystone/session";
 import { createAuth } from "@keystone-next/auth";
 import { lists } from "./schema";
-
 require("dotenv").config({ path: ".env" });
 
 const { withAuth } = createAuth({
@@ -15,58 +14,46 @@ const { withAuth } = createAuth({
   },
 });
 
-let server;
-if (process.env.NODE_ENV === "production") {
-  server = {
-    cors: {
-      origin: /jatwing\.com$/,
-      credentials: true,
-    },
-    port: process.env.PORT_PRODUCTION,
-  };
-} else {
-  server = {
-    cors: {
-      origin: "*",
-    }
-    port: process.env.PORT_DEVELOPMENT,
-  };
-}
+const db = {
+  adapter: "prisma_postgresql",
+  url: process.env.DB_URL,
+};
 
-let sessionSecret = process.env.SESSION_SECRET;
-if (!sessionSecret) {
-  if (process.env.NODE_ENV === "production") {
-    throw new Error(
-      "The SESSION_SECRET environment variable must be set in production"
-    );
-  } else {
-    sessionSecret = "-- DEV COOKIE SECRET; CHANGE ME --";
-  }
-}
-let sessionMaxAge = 60 * 60 * 24 * 30; // 30 days
+const ui = {
+  isAccessAllowed: (context) => !!context.session?.data,
+};
+
+const server = {
+  cors: {
+    origin: /jatwing\.com$/,
+    credentials: true,
+  },
+  port:
+    process.env.NODE_ENV === "production"
+      ? process.env.PORT_PRODUCTION
+      : process.env.PORT_DEVELOPMENT,
+};
+
 const session = statelessSessions({
-  secret: sessionSecret,
-  maxAge: sessionMaxAge,
+  secret: process.env.SESSION_SECRET,
+  maxAge: /** 30 days */ 60 * 60 * 24 * 30,
 });
+
+const images = {
+  upload: "local",
+  local: {
+    storagePath: "public/images",
+    baseUrl: "/images",
+  },
+};
 
 export default withAuth(
   config({
     lists,
-    db: {
-      adapter: "prisma_postgresql",
-      url: process.env.DATABASE_URL,
-    },
-    ui: {
-      isAccessAllowed: (context) => !!context.session?.data,
-    },
-    server: server,
+    db,
+    ui,
+    server,
     session,
-    images: {
-      upload: "local",
-      local: {
-        storagePath: "public/images",
-        baseUrl: "/images",
-      },
-    },
+    images,
   })
 );
