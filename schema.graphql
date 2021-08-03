@@ -136,16 +136,6 @@ enum ImageExtension {
   gif
 }
 
-type LocalImageFieldOutput implements ImageFieldOutput {
-  id: ID!
-  filesize: Int!
-  width: Int!
-  height: Int!
-  extension: ImageExtension!
-  ref: String!
-  src: String!
-}
-
 input AuthorWhereInput {
   AND: [AuthorWhereInput!]
   OR: [AuthorWhereInput!]
@@ -276,13 +266,25 @@ type Project {
   id: ID!
   name: String
   attribution: Project_attribution_DocumentField
+  avatar: ImageFieldOutput
   copyright: String
   github: String
   license: String
+  title: String
 }
 
 type Project_attribution_DocumentField {
   document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+type LocalImageFieldOutput implements ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  ref: String!
+  src: String!
 }
 
 input ProjectWhereInput {
@@ -368,6 +370,24 @@ input ProjectWhereInput {
   license_not_ends_with_i: String
   license_in: [String]
   license_not_in: [String]
+  title: String
+  title_not: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  title_i: String
+  title_not_i: String
+  title_contains_i: String
+  title_not_contains_i: String
+  title_starts_with_i: String
+  title_not_starts_with_i: String
+  title_ends_with_i: String
+  title_not_ends_with_i: String
+  title_in: [String]
+  title_not_in: [String]
 }
 
 input ProjectWhereUniqueInput {
@@ -386,6 +406,8 @@ enum SortProjectsBy {
   github_DESC
   license_ASC
   license_DESC
+  title_ASC
+  title_DESC
 }
 
 input ProjectOrderByInput {
@@ -394,14 +416,17 @@ input ProjectOrderByInput {
   copyright: OrderDirection
   github: OrderDirection
   license: OrderDirection
+  title: OrderDirection
 }
 
 input ProjectUpdateInput {
   name: String
   attribution: JSON
+  avatar: ImageFieldInput
   copyright: String
   github: String
   license: String
+  title: String
 }
 
 input ProjectsUpdateInput {
@@ -412,9 +437,11 @@ input ProjectsUpdateInput {
 input ProjectCreateInput {
   name: String
   attribution: JSON
+  avatar: ImageFieldInput
   copyright: String
   github: String
   license: String
+  title: String
 }
 
 input ProjectsCreateInput {

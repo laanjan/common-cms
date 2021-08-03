@@ -25,8 +25,8 @@ const ui = {
 
 const server = {
   cors: {
-    origin: /jatwing\.com$/,
-    credentials: true,
+    origin: "*",
+  //  credentials: true,
   },
   port:
     process.env.NODE_ENV === "production"

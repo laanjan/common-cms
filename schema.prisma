@@ -29,12 +29,19 @@ model Author {
 }
 
 model Project {
-  id          String  @id @default(cuid())
-  name        String? @unique
-  attribution Json?
-  copyright   String?
-  github      String?
-  license     String?
+  id               String  @id @default(cuid())
+  name             String? @unique
+  attribution      Json?
+  avatar_filesize  Int?
+  avatar_extension String?
+  avatar_width     Int?
+  avatar_height    Int?
+  avatar_mode      String?
+  avatar_id        String?
+  copyright        String?
+  github           String?
+  license          String?
+  title            String?
 }
 
 model Notification {
