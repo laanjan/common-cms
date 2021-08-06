@@ -1,21 +1,21 @@
-import { config } from "@keystone-next/keystone/schema";
-import { statelessSessions } from "@keystone-next/keystone/session";
-import { createAuth } from "@keystone-next/auth";
-import { lists } from "./schema";
-require("dotenv").config({ path: ".env" });
+import { config } from '@keystone-next/keystone/schema';
+import { statelessSessions } from '@keystone-next/keystone/session';
+import { createAuth } from '@keystone-next/auth';
+import { lists } from './schema';
+require('dotenv').config({ path: '.env' });
 
 const { withAuth } = createAuth({
-  listKey: "User",
-  identityField: "email",
-  secretField: "password",
-  sessionData: "name",
+  listKey: 'User',
+  identityField: 'email',
+  secretField: 'password',
+  sessionData: 'name',
   initFirstItem: {
-    fields: ["name", "email", "password"],
+    fields: ['name', 'email', 'password'],
   },
 });
 
 const db = {
-  adapter: "prisma_postgresql",
+  adapter: 'prisma_postgresql',
   url: process.env.DB_URL,
 };
 
@@ -25,11 +25,11 @@ const ui = {
 
 const server = {
   cors: {
-    origin: "*",
-  //  credentials: true,
+    origin: '*',
+    //  credentials: true,
   },
   port:
-    process.env.NODE_ENV === "production"
+    process.env.NODE_ENV === 'production'
       ? process.env.PORT_PRODUCTION
       : process.env.PORT_DEVELOPMENT,
 };
@@ -40,10 +40,10 @@ const session = statelessSessions({
 });
 
 const images = {
-  upload: "local",
+  upload: 'local',
   local: {
-    storagePath: "public/images",
-    baseUrl: "/images",
+    storagePath: 'public/images',
+    baseUrl: '/images',
   },
 };
 

@@ -1,6 +1,6 @@
-import { list } from "@keystone-next/keystone/schema";
-import { text, image } from "@keystone-next/fields";
-import { document } from "@keystone-next/fields-document";
+import { list } from '@keystone-next/keystone/schema';
+import { text, image } from '@keystone-next/fields';
+import { document } from '@keystone-next/fields-document';
 
 const Author = list({
   fields: {

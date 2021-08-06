@@ -1,6 +1,6 @@
-import { list } from "@keystone-next/keystone/schema";
-import { image, text } from "@keystone-next/fields";
-import { document } from "@keystone-next/fields-document";
+import { list } from '@keystone-next/keystone/schema';
+import { image, text } from '@keystone-next/fields';
+import { document } from '@keystone-next/fields-document';
 
 const Project = list({
   fields: {
@@ -12,7 +12,7 @@ const Project = list({
     github: text(),
     license: text(),
     title: text(),
-  }
+  },
 });
 
 export default Project;

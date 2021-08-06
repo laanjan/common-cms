@@ -1,10 +1,10 @@
-import { list } from "@keystone-next/keystone/schema";
-import { text, relationship, password } from "@keystone-next/fields";
+import { list } from '@keystone-next/keystone/schema';
+import { text, relationship, password } from '@keystone-next/fields';
 
 const User = list({
   ui: {
     listView: {
-      initialColumns: ["name"],
+      initialColumns: ['name'],
     },
   },
   fields: {
